@@ -7,7 +7,8 @@ import axios from 'axios'
 import jQuery from 'jquery'
 global.jQuery = jQuery
 import 'bootstrap/dist/css/bootstrap.min.css'
-
+import 'bootstrap/dist/js/bootstrap.min.js'
+import 'jquery/dist/jquery.min.js'
 
 Vue.config.productionTip = false
 /* eslint-disable no-new */

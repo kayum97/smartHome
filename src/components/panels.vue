@@ -1,10 +1,10 @@
 <template lang="pug">
 
-.div
-    menuApp
+.div.panel_container
+    menuApp(:isActive='isActive')
     div.container
         .row.panel
-            mixin panel(color, name, data, day)
+            mixin panel(name, data, day)
                 .card
                     .card-body
                         h5.card-title #{name} 
@@ -12,11 +12,12 @@
 
                     
 
-            +panel('°','Температура', '{{ temp }}')
-            +panel('%','Влажность', '{{ hum }}')
-            +panel('%','Газ', '{{gas}}')
-
-        small Обновлено {{ day }}
+            +panel('Температура', '{{ temp }}')
+            +panel('Влажность', '{{ hum }}')
+            +panel('Газ', '{{gas}}')
+        .row
+            .col-md-12.day
+                small Обновлено {{ day }}
                 
 
 </template>
@@ -24,23 +25,24 @@
 <script>
 import axios from 'axios'
 import menuApp from './menuApp'
-import vueinterval from 'vue-interval/dist/VueInterval.common'
 export default {
   name: 'panels',
   components: { 'menuApp': menuApp},
   data () {
     return {
+      isActive: true,
       temp: '',
       hum: '',
       gas: '',
       day: '',
+      req: ''
     }
   },
-  created() {
-     if(!localStorage.token) this.$router.replace(this.$route.query.redirect || '/')
+  created: function() {
+    window.document.title = "Главная"
+     if(!localStorage.token) this.$router.replace(this.$route.query.redirect || '/login')
      this.data_get()
      window.setInterval(() => {
-        console.log("lalal")
         this.data_get()
     }, 20000)
         
@@ -48,7 +50,7 @@ export default {
   },
   methods: {
     data_get() {
-        axios.get('http://home-server.tmweb.ru/sensor/get', {
+        axios.get('http://api.home-server.tmweb.ru/sensor/get', {
             params: {
                 api_token: localStorage.token
             }
@@ -59,11 +61,12 @@ export default {
         .catch(() => this.error() )
      },
     success(req) {
-        this.temp = req.data.data.temp
-        this.hum = req.data.data.hum
-        this.gas = req.data.data.gas
+        this.temp = req.data.data.temp + '°'
+        this.hum = req.data.data.hum + '%'
+        this.gas = req.data.data.gas + '%'
         this.day = req.data.data.created_at.date
         this.normal()
+    console.log(req)
         
     },
     normal() {
@@ -84,9 +87,14 @@ export default {
         }
     },
     error() { 
-        this.temp = 'Нет'
-        this.hum = 'дан' 
-        this.gas = 'ных'
+        this.temp = ''
+        this.hum = ''
+        this.gas = ''
+        var hidden = document.links[0].parentNode.parentNode.parentNode
+                            .lastChild.firstChild.style.display="none"
+        this.day = 'Нет данных'
+
+
     }
   }
 }
@@ -121,16 +129,19 @@ img {
     overflow: hidden;
     padding: 0 0 0 14px;
 }
-@media (max-width: 475px) {
+@media (max-width: 575px) {
 	.card.text-white {
 	    float: none;
         width: 40%;
-
 	}
+
 }
-@media (max-width: 991px) {
+@media (min-width: 576px) and (max-width: 991px) {
     .panel {
         padding: 0;
+    }
+    .day {
+        padding: 0;    
     }
 
 }

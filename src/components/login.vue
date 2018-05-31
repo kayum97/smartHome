@@ -25,9 +25,13 @@ export default {
       error: false
     }
   },
+  created: function() {
+      if(localStorage.token) this.$router.replace(this.$route.query.redirect || '/')
+      window.document.title = "Авторизация"
+  },
   methods: {
     login () {
-        this.$http.post('http://home-server.tmweb.ru/user/login', { email: this.email, password: this.password })
+        this.$http.post('http://api.home-server.tmweb.ru/user/login', { email: this.email, password: this.password })
         .then(request => this.loginSuccessful(request))
         .catch(() => this.loginFailed())
     },
@@ -39,7 +43,7 @@ export default {
         else {
             localStorage.token = req.data.data.api_token
             this.error = ''
-            this.$router.replace(this.$route.query.redirect || '/panels')
+            this.$router.replace(this.$route.query.redirect || '/')
         }
     },
     loginFailed () {
@@ -62,4 +66,9 @@ form {
   }
 }
 
+@media (max-width: 475px) {
+    form {
+         top: 70%;
+    }
+}
 </style>
