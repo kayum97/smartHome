@@ -4,17 +4,17 @@
     menuApp(:isActive='isActive')
     div.container
         .row.panel
-            mixin panel(name, data, day)
+            mixin panel(name, data, sym)
                 .card
                     .card-body
                         h5.card-title #{name} 
-                        p.card-text #{data} #{color}
+                        p.card-text #{data} #{sym}
 
                     
 
-            +panel('Температура', '{{ temp }}')
-            +panel('Влажность', '{{ hum }}')
-            +panel('Газ', '{{gas}}')
+            +panel('Температура', '{{ temp }}', '°')
+            +panel('Влажность', '{{ hum }}','%')
+            +panel('Газ', '{{gas}}', '%')
         .row
             .col-md-12.day
                 small Обновлено {{ day }}
@@ -61,11 +61,12 @@ export default {
         .catch(() => this.error() )
      },
     success(req) {
-        this.temp = req.data.data.temp + '°'
-        this.hum = req.data.data.hum + '%'
-        this.gas = req.data.data.gas + '%'
+        this.temp = req.data.data.temp
+        this.hum = req.data.data.hum
+        this.gas = req.data.data.gas
         this.day = req.data.data.created_at.date
         this.normal()
+
     console.log(req)
         
     },

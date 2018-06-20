@@ -29,19 +29,19 @@
         .card-columns
             .card.p-3
                 blockquote.blockquote.mb-0.card-body
-                    h5.card-title Названиее списка
+                    h5.card-title Название списка
                     p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
                     footer.blockquote-footer 
                         small.text-muted  Someone famous in 
             .card.p-3
                 blockquote.blockquote.mb-0.card-body
-                    h5.card-title Названиее списка
+                    h5.card-title Название списка
                     p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
                     footer.blockquote-footer 
                         small.text-muted  Someone famous in 
             .card.p-3
                 blockquote.blockquote.mb-0.card-body
-                    h5.card-title Названиее списка
+                    h5.card-title Название списка
                     p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
                     footer.blockquote-footer 
                         small.text-muted  Someone famous in 
